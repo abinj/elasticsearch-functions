@@ -8,8 +8,10 @@ public class MainApplication {
 
     public static void main(String[] args) {
 
-        elasticSearchUtils.createDocument("employee", "_doc", "1", new Employee("Abin", "25"));
+        elasticSearchUtils.createDocument("employee", "_doc", "1", new Employee("Arun", "25"));
 
+        //Search Query String as a Parameter
+        elasticSearchUtils.searchDocument("employee", "name", "Arun");
     }
 
 }

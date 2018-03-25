@@ -34,4 +34,22 @@ public class UnirestUtil {
                     }
                 });
     }
+
+    public static void getDocument(String requestUrl) {
+        Future<HttpResponse<JsonNode>> future = Unirest.get(requestUrl)
+                .asJsonAsync(new Callback<JsonNode>() {
+
+                    public void failed(UnirestException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    public void completed(HttpResponse<JsonNode> response) {
+                        System.out.println(response.getBody());
+                    }
+
+                    public void cancelled() {
+                        System.out.println("API Cancelled");
+                    }
+                });
+    }
 }

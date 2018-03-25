@@ -17,4 +17,9 @@ public class ElasticSearchUtils {
         header.put("Content-Type", "application/json");
         UnirestUtil.putDocument(requestUrl, header, body);
     }
+
+    public void searchDocument(String index, String key, String value) {
+        String requestUrl = baseUrl+ "/" + index + "/" + "_search" + "?q=" + key + ":" + value + "&pretty";
+        UnirestUtil.getDocument(requestUrl);
+    }
 }

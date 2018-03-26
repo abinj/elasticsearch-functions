@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 public class UnirestUtil {
     private static final Gson gson = new Gson();
 
-    public static void putDocument(String url, Map<String, String> headers, Object body) {
+    public static void put(String url, Map<String, String> headers, Object body) {
         HttpRequestWithBody httpRequestWithBody = Unirest.put(url);
         headers.forEach(httpRequestWithBody::header);
         httpRequestWithBody.body(gson.toJson(body));
@@ -35,7 +35,7 @@ public class UnirestUtil {
                 });
     }
 
-    public static void getDocument(String requestUrl) {
+    public static void get(String requestUrl) {
         Future<HttpResponse<JsonNode>> future = Unirest.get(requestUrl)
                 .asJsonAsync(new Callback<JsonNode>() {
 
@@ -52,4 +52,44 @@ public class UnirestUtil {
                     }
                 });
     }
+
+    public static void head(String requestUrl) {
+        Future<HttpResponse<JsonNode>> future = Unirest.head(requestUrl)
+                .asJsonAsync(new Callback<JsonNode>() {
+
+                    public void failed(UnirestException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    public void completed(HttpResponse<JsonNode> response) {
+                        System.out.println(response.getBody());
+                        System.out.println(response.getStatus());
+                    }
+
+                    public void cancelled() {
+                        System.out.println("API Cancelled");
+                    }
+                });
+    }
+
+    public static void delete(String requestUrl) {
+        Future<HttpResponse<JsonNode>> future = Unirest.delete(requestUrl)
+                .asJsonAsync(new Callback<JsonNode>() {
+
+                    public void failed(UnirestException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    public void completed(HttpResponse<JsonNode> response) {
+                        System.out.println(response.getBody());
+                        System.out.println(response.getStatus());
+                    }
+
+                    public void cancelled() {
+                        System.out.println("API Cancelled");
+                    }
+                });
+    }
+
+
 }
